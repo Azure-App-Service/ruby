@@ -10,7 +10,10 @@ RUN gem install bundler --version "=1.13.6"
 RUN gem install rubygems-bundler
 RUN gem regenerate_binstubs 
 RUN gem install --no-user-install passenger
-RUN mkdir -p /usr/local/passenger/logs
+
+# Logs will be sent to /usr/local/passenger/logs which will show up in LogFiles for user
+RUN mkdir -p /usr/local/passenger
+RUN ln -s /home/LogFiles /usr/local/passenger/logs
 
 COPY splashsite.zip /tmp
 RUN unzip -q /tmp/splashsite.zip -d /opt/splash 
