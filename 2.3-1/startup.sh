@@ -1,3 +1,4 @@
+service ssh start
 if [ -n "$SECRET_KEY_BASE" ]
   then
     echo 'Secret key base present'
