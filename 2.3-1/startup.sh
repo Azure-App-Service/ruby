@@ -29,6 +29,9 @@ if bundle check | grep satisfied
     exit -1
 fi
 
+echo 'running bundle install --deployment'
+bundle install --deployment
+
 if [ -n "$APP_COMMAND_LINE" ]
   then
     echo 'using command: $APP_COMMAND_LINE'
