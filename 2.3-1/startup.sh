@@ -21,7 +21,7 @@ echo 'Removing any leftover pids if present'
 rm -f tmp/pids/* ;
 
 bundle config --local path "vendor/bundle"
-if bundle check | grep satisfied
+if bundle check --path "vendor/bundle" | grep satisfied
   then
     echo 'dependency check passed'
   else
@@ -29,8 +29,8 @@ if bundle check | grep satisfied
     exit -1
 fi
 
-echo 'running bundle install --deployment'
-bundle install --deployment
+echo 'running bundle install --local --deployment'
+bundle install --local --deployment 
 
 if [ -n "$APP_COMMAND_LINE" ]
   then
