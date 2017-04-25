@@ -1,3 +1,19 @@
+if [ -e /home/site/wwwroot/Gemfile ] 
+  then
+    echo 'Found Gemfile, working directory is /home/site/wwwroot'
+    cd /home/site/wwroot
+  else
+    echo 'No Gemfile found'
+    if [ -n "$RAILS_IGNORE_SPLASH" ]
+      then 
+        echo 'RAILS_IGNORE_SPLASH is set, working directory is /home/site/wwroot'
+        cd /home/site/wwroot
+      else
+        echo 'assuming no solution. Changing directory to splash site /opt/splash'
+        cd /opt/splash/splash
+    fi
+fi
+
 if [ -n "$SECRET_KEY_BASE" ]
   then
     echo 'Secret key base present'
