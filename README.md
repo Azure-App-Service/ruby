@@ -18,12 +18,12 @@ This ruby image is built around the idea that it does not contain the site itsel
 ## Ruby-Specific AppSettings
 These app settings are checked for and honored in ruby site deployment on app service. 
 ### Deployment specific appsettings
-- BUNDLE_WITHOUT - in Kudu, this setting will be set as such: "bundle install --without $BUNDLE_WITHOUT"
-- ASSETS_PRECOMPILE - if set, we run "bundle exec rake --trace assets:precompile" in deployment through kudu
+- **BUNDLE_WITHOUT** - in Kudu, this setting will be set as such: "bundle install --without $BUNDLE_WITHOUT"
+- **ASSETS_PRECOMPILE** - if set, we run "bundle exec rake --trace assets:precompile" in deployment through kudu
 ### Site container specific appsettings
-- SECRET_KEY_BASE - if not set we will set it for you
-- RAILS_ENV - if not set, we default to 'production' and run it as 'rails server -e $RAILS_ENV'
-- APP_COMMAND_LINE - overrides the 'rails server' command. Make sure your site starts on port 3000
+- **SECRET_KEY_BASE** - if not set we will set it for you
+- **RAILS_ENV** - if not set, we default to 'production' and run it as 'rails server -e $RAILS_ENV'
+- **APP_COMMAND_LINE** - overrides the 'rails server' command. Make sure your site starts on port 3000
 
 ## Deployment steps 
 When a site is deployed to App Service using git, the Kudu site (appsvc/kudu:1.3) will run a series of steps on the site to make it deployment ready. The next release (1.4) will have extra steps which will be marked.  
