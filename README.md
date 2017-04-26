@@ -43,5 +43,10 @@ If you look at the startup.sh file you will see the steps taken when the site co
 5. Run `bundle install --local --deployment` just in case. If a gem doesn't exist then it will try to install the gem from the vendor/cache folder but won't try to download from the "source" defined in Gemfile. 
 6. If $APP_COMMAND_LINE is not set, default to `rails server -e $RAILS_ENV`, otherwise run $APP_COMMAND_LINE to start the server. 
 
+## Tutorials
+A few "quick start" tutorials will be available to help you develop using our service.
+
+[hello world](tutorials/hello-world/README.md)
+
 ## Troubleshooting
 In your site contents directory (you can access via ftp or kudu/scm site), look for LogFiles/docker and all docker output will be sent to those files. Feel free to give feedback on any container issues, this image is still being developed. 
