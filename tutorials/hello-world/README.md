@@ -38,7 +38,7 @@ After these steps your landing page should be configured. You can try running th
 ![13](assets/13.PNG?raw=true)
 
 ### Creating a ruby website on Azure
-1. On the azure portal [portal.azure.com](portal.azure.com), click on the `+` symbol on the sidebar and search for `web apps on linux`
+1. On the azure portal [portal.azure.com](http://portal.azure.com), click on the `+` symbol on the sidebar and search for `web apps on linux`
 
 ![9.1](assets/9.1.PNG?raw=true)
 ![9](assets/9.PNG?raw=true)
