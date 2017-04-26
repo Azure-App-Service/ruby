@@ -28,17 +28,16 @@ These app settings are checked for and honored in ruby site deployment on app se
 ## Deployment steps 
 When a site is deployed to App Service using git, the Kudu site (appsvc/kudu:1.3) will run a series of steps on the site to make it deployment ready. The next release (1.4) will have extra steps which will be marked.  
 1. Check for existence of Gemfile
-2. run "bundle clean" to remove any changed/unnecessary gems (1.4)
-3. run "bundle install --deployment $OPTIONS" to install gems to vendor folder. $OPTIONS will turn into any --without parameters. (1.4 uses --path \"vendor/bundle\" instead of --deployment)
-4. run "bundle package" to package gems into vendor/cache folder (1.4) 
-5. If $ASSETS_PRECOMPILE is defined as true, then we run "bundle exec rake --trace assets:precompile"
+2. run `bundle clean` to remove any changed/unnecessary gems (1.4)
+3. run `bundle install --deployment $OPTIONS` to install gems to vendor folder. $OPTIONS will turn into any --without parameters. (1.4 uses `--path "vendor/bundle" instead of --deployment`)
+4. run `bundle package` to package gems into vendor/cache folder (1.4) 
+5. If $ASSETS_PRECOMPILE is defined as true, then we run `bundle exec rake --trace assets:precompile`
 
 ## Site startup 
 If you look at the startup.sh file you will see the steps taken when the site container starts. 
-1. Start ssh server on container
-2. Generate $SECRET_KEY_BASE if the user hasn't provided one already (to allow running in production mode) 
-3. Default $RAILS_ENV to production if not specified
-4. remove any pid files from tmp/pids
-5. run "bundle check" in vendor/bundle to make sure all dependencies are satisfied, if not, container fails to start (this is because gems shouldn't be installed on site start, only in deployment. So if check fails, run deployment again or install gems locally and directly drop them into the vendor folder.
-6. Run "bundle install --local --deployment" just in case. If a gem doesn't exist then it will try to install the gem from the vendor/cache folder but won't try to download from the "source" defined in Gemfile. 
-7. If $APP_COMMAND_LINE is not set, default to "rails server -e $RAILS_ENV", otherwise run $APP_COMMAND_LINE to start the server. 
+1. Generate $SECRET_KEY_BASE if the user hasn't provided one already (to allow running in production mode) 
+2. Default $RAILS_ENV to production if not specified
+3. remove any pid files from tmp/pids
+4. run `bundle check` in vendor/bundle to make sure all dependencies are satisfied, if not, container fails to start (this is because gems shouldn't be installed on site start, only in deployment. So if check fails, run deployment again or install gems locally and directly drop them into the vendor folder.
+5. Run `bundle install --local --deployment` just in case. If a gem doesn't exist then it will try to install the gem from the vendor/cache folder but won't try to download from the "source" defined in Gemfile. 
+6. If $APP_COMMAND_LINE is not set, default to `rails server -e $RAILS_ENV`, otherwise run $APP_COMMAND_LINE to start the server. 
