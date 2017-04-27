@@ -27,7 +27,7 @@ RUN cd /opt/splash/splash; bundle install --deployment
 
 RUN dos2unix /opt/startup.sh
 
-HEALTHCHECK CMD curl --fail http://localhost:3000/ || exit 1 
+#HEALTHCHECK CMD curl --fail http://localhost:3000/ || exit 1 
 
 EXPOSE 2222
 
