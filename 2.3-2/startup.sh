@@ -50,7 +50,7 @@ if [ -n "$APP_COMMAND_LINE" ]
     echo 'using command: $APP_COMMAND_LINE'
   else
     echo 'defaulting to command: "rails server -e $RAILS_ENV"'
-    export APP_COMMAND_LINE="rails server -e $RAILS_ENV"
+    export APP_COMMAND_LINE="rails server -b 0.0.0.0 -e $RAILS_ENV"
 fi
 
 echo "Executing $APP_COMMAND_LINE"
