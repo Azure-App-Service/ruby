@@ -47,6 +47,7 @@ If you look at the startup.sh file you will see the steps taken when the site co
 A few "quick start" tutorials will be available to help you develop using our service.
 
 [hello world](tutorials/hello-world/README.md)
+[github deployment](tutorials/github-deploy/README.md)
 
 ## Troubleshooting
 In your site contents directory (you can access via ftp or kudu/scm site), look for LogFiles/docker and all docker output will be sent to those files. Feel free to give feedback on any container issues, this image is still being developed. 
