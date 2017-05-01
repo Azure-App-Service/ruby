@@ -27,11 +27,11 @@ These app settings are checked for and honored in ruby site deployment on app se
 - **APP_COMMAND_LINE** - overrides the 'rails server' command. Make sure your site starts on port 3000 unless specified through $PORT
 
 ## Deployment steps 
-When a site is deployed to App Service using git, the Kudu site (appsvc/kudu:1.3) will run a series of steps on the site to make it deployment ready. The next release (1.4) will have extra steps which will be marked.  
+When a site is deployed to App Service using git, the Kudu site (appsvc/kudu:1.4) will run a series of steps on the site to make it deployment ready.
 1. Check for existence of Gemfile
-2. run `bundle clean` to remove any changed/unnecessary gems (1.4)
-3. run `bundle install --deployment $OPTIONS` to install gems to vendor folder. $OPTIONS will turn into any --without parameters. (1.4 uses `--path "vendor/bundle" instead of --deployment`)
-4. run `bundle package` to package gems into vendor/cache folder (1.4) 
+2. run `bundle clean` to remove any changed/unnecessary gems 
+3. run `bundle install --path "vendor/bundle"` to install gems to vendor folder. $OPTIONS will turn into any --without parameters.
+4. run `bundle package` to package gems into vendor/cache folder 
 5. If $ASSETS_PRECOMPILE is defined as true, then we run `bundle exec rake --trace assets:precompile`
 
 ## Site startup 
