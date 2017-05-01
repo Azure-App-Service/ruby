@@ -50,5 +50,7 @@ A few "quick start" tutorials will be available to help you develop using our se
 
 [github deployment](tutorials/github-deploy/README.md)
 
+[rails + bootstrap (serving static assets + debugging)](tutorials/rails-bootstrap/README.md)
+
 ## Troubleshooting
 In your site contents directory (you can access via ftp or kudu/scm site), look for LogFiles/docker and all docker output will be sent to those files. Feel free to give feedback on any container issues, this image is still being developed. 
