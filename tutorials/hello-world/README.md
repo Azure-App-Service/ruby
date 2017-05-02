@@ -14,7 +14,7 @@ This tutorial will show you how to create a basic ruby on rails application loca
 ![1](assets/1.PNG?raw=true)
 3. Install rails using `gem install rails`
 ![2](assets/2.PNG?raw=true)
-3. Create a new rails application **hello-world** using `rails new hello-world`
+3. Create a new rails application **hello-world** using `rails new hello-world` **If you are using Rails 5.1+, a package.json will be created. You can either delete this file (it will mess up this tutorial a bit), or in use the command "rails new hello-world --skip-yarn"**
 ![3](assets/3.PNG?raw=true "beginning of output")
 ![4](assets/4.PNG?raw=true "end of output")
 4. Move into created directory `cd hello-world`
