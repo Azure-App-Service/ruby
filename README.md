@@ -3,6 +3,7 @@
 ## Notes
 - Current version in production is 2.3-1
 - 2.3-0 does not work with current build of App Service
+- We are currently working on adding support for Rails 5.1 and Yarn dependency management, until then it's recommended that you remove the package.json from your solution and manually copy any built dependencies through yarn to your site through ftp
 
 ## Changes from 2.3-0 - 2.3-1 
 - Move startup steps from behind-the-scenes to startup.sh 
