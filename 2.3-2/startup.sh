@@ -47,12 +47,6 @@ bundle install --local --deployment
 
 if [ -n "$APP_COMMAND_LINE" ]
   then
-    echo 'running "gem pristine --all"'
-    gem pristine --all
-fi
-
-if [ -n "$APP_COMMAND_LINE" ]
-  then
     echo 'using command: $APP_COMMAND_LINE'
   else
     echo 'defaulting to command: "rails server -e $RAILS_ENV"'
