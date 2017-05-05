@@ -45,6 +45,12 @@ fi
 echo 'running bundle install --local --path vendor/bundle'
 bundle install --local --deployment 
 
+if [ -n "$GEM_PRISTINE" ]
+  then
+    echo 'running "gem pristine --all"'
+    bundle exec gem pristine --all
+fi
+
 if [ -n "$APP_COMMAND_LINE" ]
   then
     echo 'using command: $APP_COMMAND_LINE'
