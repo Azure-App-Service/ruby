@@ -42,8 +42,14 @@ if bundle check --path "vendor/bundle" | grep satisfied
     exit -1
 fi
 
-echo 'running bundle install --local --deployment'
+echo 'running bundle install --local --path vendor/bundle'
 bundle install --local --deployment 
+
+if [ -n "$APP_COMMAND_LINE" ]
+  then
+    echo 'running "gem pristine --all"'
+    gem pristine --all
+fi
 
 if [ -n "$APP_COMMAND_LINE" ]
   then
