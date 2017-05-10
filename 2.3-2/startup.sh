@@ -44,11 +44,11 @@ if [ -f /home/site/config/gems.tgz ]
     echo 'Removing bundler config'
     rm -f /usr/local/.rbenv/versions/2.3.3/lib/ruby/gems/2.3.0/config
     
-    export ZIPPED_GEMS=true
+    export ZIPPED_GEMS=1
 fi
 
 echo 'Running bundle check'
-if [ $ZIPPED_GEMS = true ]
+if [ $ZIPPED_GEMS -eq 1 ]
   then
     if bundle check | grep satisfied
     then
@@ -68,7 +68,7 @@ if [ $ZIPPED_GEMS = true ]
     fi
 fi
 
-if [ $ZIPPED_GEMS = true ]
+if [ $ZIPPED_GEMS -eq 1 ]
   then
     echo 'running bundle install --no-deployment'
     bundle install --no-deployment
