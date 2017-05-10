@@ -1,7 +1,7 @@
 if [ -e /home/site/wwwroot/Gemfile ] 
   then
     echo 'Found Gemfile, working directory is /home/site/wwwroot'
-    cd /home/site/wwroot
+    cd /home/site/wwwroot
   else
     echo 'No Gemfile found'
     if [ -n "$RAILS_IGNORE_SPLASH" ]
@@ -33,17 +33,49 @@ fi
 echo 'Removing any leftover pids if present'
 rm -f tmp/pids/* ;
 
-bundle config --local path "vendor/bundle"
-if bundle check --path "vendor/bundle" | grep satisfied
+# Support zipped gems 
+if [ -f /home/site/config/gems.tgz ]
   then
-    echo 'dependency check passed'
-  else
-    echo 'missing dependencies, try redeploying'
-    exit -1
+    echo "gems.tgz detected, beginning unzipping process"
+    echo "unzipping..."
+    cp /home/site/config/gems.tgz /tmp
+    tar -C /usr/local/.rbenv/versions/2.3.3/lib/ruby/gems/2.3.0 -xf /tmp/gems.tgz
+    
+    echo 'Removing bundler config'
+    rm -f /usr/local/.rbenv/versions/2.3.3/lib/ruby/gems/2.3.0/config
+    
+    export ZIPPED_GEMS=true
 fi
 
-echo 'running bundle install --local --path vendor/bundle'
-bundle install --local --deployment 
+echo 'Running bundle check'
+if [ $ZIPPED_GEMS = true ]
+  then
+    if bundle check | grep satisfied
+    then
+      echo 'dependency check passed'
+    else
+      echo 'missing dependencies, try redeploying'
+      exit -1
+    fi
+  else
+    bundle config --local path "vendor/bundle"
+    if bundle check --path "vendor/bundle" | grep satisfied
+      then
+        echo 'dependency check passed'
+      else
+        echo 'missing dependencies, try redeploying'
+        exit -1
+    fi
+fi
+
+if [ $ZIPPED_GEMS = true ]
+  then
+    echo 'running bundle install --no-deployment'
+    bundle install --no-deployment
+  else
+    echo 'running bundle install --local --path vendor/bundle'
+    bundle install --local --path vendor/bundle
+fi
 
 if [ -n "$GEM_PRISTINE" ]
   then
@@ -55,8 +87,8 @@ if [ -n "$APP_COMMAND_LINE" ]
   then
     echo 'using command: $APP_COMMAND_LINE'
   else
-    echo 'defaulting to command: "rails server -e $RAILS_ENV"'
-    export APP_COMMAND_LINE="rails server -b 0.0.0.0 -e $RAILS_ENV"
+    echo 'defaulting to command: "bundle exec rails server -e $RAILS_ENV"'
+    export APP_COMMAND_LINE="bundle exec rails server -b 0.0.0.0 -e $RAILS_ENV"
 fi
 
 echo "Executing $APP_COMMAND_LINE"
