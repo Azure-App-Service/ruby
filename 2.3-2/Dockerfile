@@ -3,7 +3,6 @@ MAINTAINER Azure App Services Container Images <appsvc-images@microsoft.com>
 
 RUN apt-get update -qq \
     && apt-get install -y nodejs unzip openssh-server dos2unix --no-install-recommends \
-    && chmod 755 /bin/init_container.sh \
     && echo "root:Docker!" | chpasswd
 
 COPY sshd_config /etc/ssh/
@@ -16,6 +15,8 @@ RUN eval "$(rbenv init -)" \
 
 COPY init_container.sh /bin/
 COPY startup.sh /opt/
+
+RUN chmod 755 /bin/init_container.sh 
 
 # Rollback bundler version for deployment reasons (14 had a breaking change for us)
 # RUN gem uninstall -i /usr/local/lib/ruby/gems/2.3.0 bundler
