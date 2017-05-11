@@ -38,6 +38,7 @@ if [ -f /home/site/config/gems.tgz ]
   then
     echo "gems.tgz detected, beginning unzipping process"
     echo "unzipping..."
+    mkdir -p /tmp/bundle
     cp /home/site/config/gems.tgz /tmp
     tar -C /tmp/bundle -xf /tmp/gems.tgz
     
