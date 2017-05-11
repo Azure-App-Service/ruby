@@ -6,8 +6,8 @@ if [ -e /home/site/wwwroot/Gemfile ]
     echo 'No Gemfile found'
     if [ -n "$RAILS_IGNORE_SPLASH" ]
       then 
-        echo 'RAILS_IGNORE_SPLASH is set, working directory is /home/site/wwroot'
-        cd /home/site/wwroot
+        echo 'RAILS_IGNORE_SPLASH is set, working directory is /home/site/wwwroot'
+        cd /home/site/wwwroot
       else
         echo 'assuming no solution. Changing directory to splash site /opt/splash'
         cd /opt/splash/splash
