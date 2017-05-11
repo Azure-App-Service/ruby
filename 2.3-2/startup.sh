@@ -85,12 +85,19 @@ if [ -n "$GEM_PRISTINE" ]
     bundle exec gem pristine --all
 fi
 
+if [ -n "$PORT" ]
+  then
+    echo 'Using Port $PORT'
+  else
+    echo 'Defaulting to port 3000'
+fi
+
 if [ -n "$APP_COMMAND_LINE" ]
   then
     echo 'using command: $APP_COMMAND_LINE'
   else
-    echo 'defaulting to command: "bundle exec rails server -e $RAILS_ENV"'
-    export APP_COMMAND_LINE="bundle exec rails server -b 0.0.0.0 -e $RAILS_ENV"
+    echo 'defaulting to command: "bundle exec rails server -e $RAILS_ENV -p $PORT"'
+    export APP_COMMAND_LINE="bundle exec rails server -b 0.0.0.0 -e $RAILS_ENV -p $PORT"
 fi
 
 echo "Executing $APP_COMMAND_LINE"
