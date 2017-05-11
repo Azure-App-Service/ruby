@@ -90,6 +90,7 @@ if [ -n "$PORT" ]
     echo 'Using Port $PORT'
   else
     echo 'Defaulting to port 3000'
+    export PORT=3000
 fi
 
 if [ -n "$APP_COMMAND_LINE" ]
