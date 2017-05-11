@@ -39,10 +39,10 @@ if [ -f /home/site/config/gems.tgz ]
     echo "gems.tgz detected, beginning unzipping process"
     echo "unzipping..."
     cp /home/site/config/gems.tgz /tmp
-    tar -C /usr/local/.rbenv/versions/2.3.3/lib/ruby/gems/2.3.0 -xf /tmp/gems.tgz
+    tar -C /tmp/bundle -xf /tmp/gems.tgz
     
     echo 'Removing bundler config'
-    rm -f /usr/local/.rbenv/versions/2.3.3/lib/ruby/gems/2.3.0/config
+    rm -f /tmp/bundle/config
     
     export ZIPPED_GEMS=1
 fi
