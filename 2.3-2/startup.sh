@@ -50,6 +50,7 @@ fi
 echo 'Running bundle check'
 if [ $ZIPPED_GEMS -eq 1 ]
   then
+    bundle config --global path /tmp/bundle
     if bundle check | grep satisfied
     then
       echo 'dependency check passed'
