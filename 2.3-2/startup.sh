@@ -1,4 +1,4 @@
-# initialize env
+#!/usr/bin/env bash
 if [ -z $BUNDLE_WITHOUT ]; then 
   echo "Bundle install with no 'without' options"; 
   RUBY_OPTIONS="";
@@ -119,13 +119,11 @@ if [ -n "$PORT" ]
     export PORT=3000
 fi
 
-if [ -n "$APP_COMMAND_LINE" ]
+if [ $# -ne 0 ]
   then
-    echo "using command: $APP_COMMAND_LINE"
+    echo "Executing $@"
+    exec "$@"
   else
     echo "defaulting to command: \"bundle exec rails server -e $RAILS_ENV -p $PORT\""
-    export APP_COMMAND_LINE="bundle exec rails server -b 0.0.0.0 -e $RAILS_ENV -p $PORT"
+    exec bundle exec rails server -b 0.0.0.0 -e "$RAILS_ENV" -p "$PORT"
 fi
-
-echo "Executing $APP_COMMAND_LINE"
-$APP_COMMAND_LINE
