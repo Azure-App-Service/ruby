@@ -1,5 +1,12 @@
 #!/usr/bin/env bash
-if [ -z $BUNDLE_WITHOUT ]; then 
+
+if ! [ -e /home/site/wwwroot/Gemfile ] && [ -z "$RAILS_IGNORE_SPLASH" ]
+  then
+   echo 'No Gemfile found and RAILS_IGNORE_SPLASH not set, running default static site'
+   exec rbenv exec ruby /opt/staticsite.rb
+fi
+
+if [ -z "$BUNDLE_WITHOUT" ]; then 
   echo "Bundle install with no 'without' options"; 
   RUBY_OPTIONS="";
 else 
@@ -7,36 +14,18 @@ else
   echo "Bundle install with options $RUBY_OPTIONS";
 fi
 
-if [ -z $BUNDLE_INSTALL_LOCATION ]; then 
+if [ -z "$BUNDLE_INSTALL_LOCATION" ]; then 
   echo "Defaulting gem installation directory to /tmp/bundle"; 
   BUNDLE_INSTALL_LOCATION="/tmp/bundle";
 else 
   echo "Gem installation directory is $BUNDLE_INSTALL_LOCATION";
 fi
 
-if [ -z $RUBY_SITE_CONFIG_DIR ]; then 
+if [ -z "$RUBY_SITE_CONFIG_DIR" ]; then 
   echo "Defaulting site config directory to /home/site/config"; 
   RUBY_SITE_CONFIG_DIR="/home/site/config"
 else 
   echo "site config directory is $RUBY_SITE_CONFIG_DIR";
-fi
-	
-
-
-if [ -e /home/site/wwwroot/Gemfile ] 
-  then
-    echo 'Found Gemfile, working directory is /home/site/wwwroot'
-    cd /home/site/wwwroot
-  else
-    echo 'No Gemfile found'
-    if [ -n "$RAILS_IGNORE_SPLASH" ]
-      then 
-        echo 'RAILS_IGNORE_SPLASH is set, working directory is /home/site/wwwroot'
-        cd /home/site/wwwroot
-      else
-        echo 'assuming no solution. Changing directory to splash site /opt/splash'
-        cd /opt/splash/splash
-    fi
 fi
 
 if [ -n "$SECRET_KEY_BASE" ]
@@ -75,7 +64,7 @@ if [ -f  ${RUBY_SITE_CONFIG_DIR}/gems.tgz ]
 fi
 
 echo 'Running bundle check'
-if [ $ZIPPED_GEMS -eq 1 ]
+if [ "$ZIPPED_GEMS" -eq 1 ]
   then
     bundle config --global path $BUNDLE_INSTALL_LOCATION
     if bundle check | grep satisfied
@@ -96,7 +85,7 @@ if [ $ZIPPED_GEMS -eq 1 ]
     fi
 fi
 
-if [ $ZIPPED_GEMS -eq 1 ]
+if [ "$ZIPPED_GEMS" -eq 1 ]
   then
     echo "running bundle install $RUBY_OPTIONS --no-deployment"
     bundle install --no-deployment $RUBY_OPTIONS
@@ -109,14 +98,6 @@ if [ -n "$GEM_PRISTINE" ]
   then
     echo 'running "gem pristine --all"'
     bundle exec gem pristine --all
-fi
-
-if [ -n "$PORT" ]
-  then
-    echo "Using Port $PORT"
-  else
-    echo 'Defaulting to port 3000'
-    export PORT=3000
 fi
 
 if [ $# -ne 0 ]
