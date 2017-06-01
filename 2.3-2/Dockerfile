@@ -1,37 +1,29 @@
 FROM appsvctest/rubybase:2.3.3
 MAINTAINER Azure App Services Container Images <appsvc-images@microsoft.com>
 
-RUN apt-get update -qq \
-    && apt-get install -y nodejs unzip openssh-server dos2unix --no-install-recommends \
-    && echo "root:Docker!" | chpasswd
-
-COPY sshd_config /etc/ssh/
-COPY splashsite.zip /tmp
-RUN unzip -q /tmp/splashsite.zip -d /opt/splash 
-
-RUN eval "$(rbenv init -)" \
-  && rbenv global 2.3.3 \
-  && cd /opt/splash/splash; bundle install --deployment
-
 COPY init_container.sh /bin/
 COPY startup.sh /opt/
+COPY sshd_config /etc/ssh/
+COPY hostingstart.html /home/site/wwwroot/hostingstart.html
+COPY staticsite.rb /opt/staticsite.rb
 
-RUN chmod 755 /bin/init_container.sh 
+RUN apt-get update -qq \
+    && apt-get install -y nodejs openssh-server --no-install-recommends \
+    && echo "root:Docker!" | chpasswd
 
-# Rollback bundler version for deployment reasons (14 had a breaking change for us)
-# RUN gem uninstall -i /usr/local/lib/ruby/gems/2.3.0 bundler
-# RUN gem install bundler --version "=1.13.6"
+RUN eval "$(rbenv init -)" \
+  && rbenv global 2.3.3
 
-# Install passenger (unused now as we only run rails server)
-#RUN gem install rubygems-bundler
-#RUN gem regenerate_binstubs 
-#RUN gem install --no-user-install passenger
+RUN chmod 755 /bin/init_container.sh \
+  && mkdir -p /home/LogFiles/ \
+  && chmod 755 /opt/startup.sh
 
+EXPOSE 2222 8080
 
+ENV PORT 8080
+ENV WEBSITE_ROLE_INSTANCE_ID localRoleInstance
+ENV WEBSITE_INSTANCE_ID localInstance
 
-# RUN dos2unix /opt/startup.sh
+WORKDIR /home/site/wwwroot
 
-#HEALTHCHECK CMD curl --fail http://localhost:3000/ || exit 1 
-
-#CMD ["/bin/init_container.sh"]
-
+ENTRYPOINT [ "/bin/init_container.sh" ]

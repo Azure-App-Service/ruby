@@ -1,7 +1,5 @@
 FROM buildpack-deps:jessie-curl
 
-COPY init_ruby.sh /bin
-
 RUN apt-get update -qq 
 
 # Dependencies for various ruby and rubygem installations
