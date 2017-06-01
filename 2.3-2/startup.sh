@@ -3,7 +3,7 @@
 if ! [ -e /home/site/wwwroot/Gemfile ] && [ -z "$RAILS_IGNORE_SPLASH" ]
   then
    echo 'No Gemfile found and RAILS_IGNORE_SPLASH not set, running default static site'
-   exec rbenv exec ruby /opt/staticsite.rb
+   exec ruby /opt/staticsite.rb
 fi
 
 if [ -z "$BUNDLE_WITHOUT" ]; then 
@@ -49,7 +49,7 @@ rm -f tmp/pids/* ;
 
 # Support zipped gems 
 
-if [ -f  ${RUBY_SITE_CONFIG_DIR}/gems.tgz ]
+if [ -f  "${RUBY_SITE_CONFIG_DIR}/gems.tgz" ]
   then
     echo "gems.tgz detected, beginning unzipping process"
     echo "unzipping..."
