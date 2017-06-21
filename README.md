@@ -1,7 +1,7 @@
 # Ruby on Azure App Service 
   
 ## Notes
-- Current version in production is 2.3-1
+- Current version (tag) in production is 2.3-1 [dockerhub](https://hub.docker.com/r/appsvc/ruby/)
 - 2.3-0 does not work with current build of App Service
 - We are currently working on adding support for Rails 5.1 and Yarn dependency management, until then it's recommended that you remove the package.json from your solution and manually copy any built dependencies through yarn to your site through ftp
 - If you set your **RAILS_ENV** to development, you may need to update your **appcommandline** to be "rails server -b 0.0.0.0" , otherwise it will run on localhost by default and the server won't be exposed outside the container.
@@ -9,7 +9,7 @@
 ## Changes from 2.3-0 - 2.3-1 
 - Move startup steps from behind-the-scenes to startup.sh 
 - Remove passenger from default startup
-- Logs are 100% stored in LogFiles/docker (container stdout)
+- Logs are 100% stored in home/LogFiles/docker (container stdout)
 
 ## About the docker image
 This ruby image is built around the idea that it does not contain the site itself, rather the site will be mounted to the home/site/wwwroot directory. The site is assumed to have packaged gems in the vendor/bundle folder and gems cached in vendor/cache. These steps are taken care of in Kudu during deployment. In app service, the site exists on a shared volume and is mounted to into the container on each worker. 
