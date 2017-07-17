@@ -8,8 +8,6 @@ docker build -t "$1"/ruby:2.3.3_"$buildnumber" -t "$1"/ruby:latest_"$buildnumber
 
 docker login -u "$2" -p "$3"
 
-#docker push "$1"/rubybase:2.3.3
-
 docker push "$1"/ruby:latest_"$buildnumber"
 docker push "$1"/ruby:2.3.3_"$buildnumber"
 
