@@ -10,7 +10,7 @@ COPY staticsite.rb /opt/staticsite.rb
 RUN apt-get update -qq \
     && apt-get install -y nodejs openssh-server vim curl wget tcptraceroute --no-install-recommends \
     && echo "root:Docker!" | chpasswd \
-    && echo "cd /" >> /etc/bash.bashrc
+    && echo "cd /home" >> /etc/bash.bashrc
 
 RUN eval "$(rbenv init -)" \
   && rbenv global 2.3.3
