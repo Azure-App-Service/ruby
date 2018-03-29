@@ -105,6 +105,6 @@ if [ $# -ne 0 ]
     echo "Executing $@"
     exec "$@"
   else
-    echo "defaulting to command: \"bundle exec rails server -e $RAILS_ENV -p $PORT\""
-    exec bundle exec rails server -b 0.0.0.0 -e "$RAILS_ENV" -p "$PORT"
+    echo "defaulting to command: \"bundle exec rackup -o 0.0.0.0 -E $RAILS_ENV -p $PORT\""
+    exec bundle exec rackup -o 0.0.0.0 -E "$RAILS_ENV" -p "$PORT"
 fi
