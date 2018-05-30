@@ -48,7 +48,7 @@ echo 'Removing any leftover pids if present'
 rm -f tmp/pids/* ;
 
 # Support zipped gems 
-
+export ZIPPED_GEMS=0
 if [ -f  "${RUBY_SITE_CONFIG_DIR}/gems.tgz" ]
   then
     echo "gems.tgz detected, beginning unzipping process"
