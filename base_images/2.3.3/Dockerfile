@@ -45,12 +45,12 @@ RUN eval "$(rbenv init -)" \
 ENV NOKOGIRI_USE_SYSTEM_LIBRARIES=true
 
 # SQL Server gem support
-RUN wget ftp://ftp.freetds.org/pub/freetds/stable/freetds-patched.tar.gz \
-    && tar zxvf freetds-patched.tar.gz \
-    && cd `tar -tzf freetds-patched.tar.gz | head -1 | cut -f1 -d"/"` \
-    && ./configure --sysconfdir=/etc/freetds \
-    && make; make install; make clean \
-    && cd ..
+RUN wget -O freetds-1.00.15.tar.gz "ftp://ftp.freetds.org/pub/freetds/stable/freetds-1.00.15.tar.gz" \
+  && tar -xzvf freetds-1.00.15.tar.gz \
+  && cd freetds-1.00.15 \
+  && ./configure \
+  && make; make install; make clean \
+  && cd ..
 
 # Make temp directory for ruby images
 RUN mkdir -p /tmp/bundle
