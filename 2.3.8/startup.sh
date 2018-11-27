@@ -76,6 +76,7 @@ if [ "$ZIPPED_GEMS" -eq 1 ]
     fi
   else
     bundle config --local path "vendor/bundle"
+    bundle update
     if bundle check --path "vendor/bundle" | grep satisfied
       then
         echo 'dependency check passed'
