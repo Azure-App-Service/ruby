@@ -1,5 +1,5 @@
-FROM appsvc/rubybase:2.3.3
-MAINTAINER Azure App Services Container Images <appsvc-images@microsoft.com>
+FROM appsvc/rubybase:2.4.5
+LABEL maintainer="Azure App Services Container Images <appsvc-images@microsoft.com>"
 
 COPY init_container.sh /bin/
 COPY startup.sh /opt/
@@ -13,7 +13,7 @@ RUN apt-get update -qq \
     && echo "cd /home" >> /etc/bash.bashrc
 
 RUN eval "$(rbenv init -)" \
-  && rbenv global 2.3.3
+  && rbenv global 2.4.5
 
 RUN chmod 755 /bin/init_container.sh \
   && mkdir -p /home/LogFiles/ \

@@ -3,14 +3,14 @@ set -x -e
 
 buildnumber=${4-$(date -u +"%y%m%d%H%M")}
 
-#docker build -t "$1"/rubybase:2.3.3_"$buildnumber" base_images/2.3.3
-docker build --no-cache -t "$1"/ruby:2.3.3_"$buildnumber" -t "$1"/ruby:latest_"$buildnumber" 2.3.3
+docker build -t "$1"/rubybase:2.3.8_"$buildnumber" base_images/2.3.8
+docker build --no-cache -t "$1"/ruby:2.3.8_"$buildnumber" -t "$1"/ruby:latest_"$buildnumber" 2.3.8
 docker tag "$1"/ruby:latest_"$buildnumber" "$1"/ruby:latest 
 
 docker login -u "$2" -p "$3"
 
 docker push "$1"/ruby:latest_"$buildnumber"
-docker push "$1"/ruby:2.3.3_"$buildnumber"
+docker push "$1"/ruby:2.3.8_"$buildnumber"
 docker push "$1"/ruby:latest
 
 docker logout
