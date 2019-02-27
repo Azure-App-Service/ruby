@@ -22,6 +22,7 @@ RUN chmod 755 /bin/init_container.sh \
 EXPOSE 2222 8080
 
 ENV PORT 8080
+ENV SSH_PORT 2222
 ENV WEBSITE_ROLE_INSTANCE_ID localRoleInstance
 ENV WEBSITE_INSTANCE_ID localInstance
 ENV PATH ${PATH}:/home/site/wwwroot
