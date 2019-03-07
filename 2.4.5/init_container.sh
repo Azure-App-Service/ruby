@@ -14,7 +14,7 @@ Ruby quickstart: https://aka.ms/ruby-qs
 EOL
 cat /etc/motd
 
-sed -i "s/{SSH_PORT}/$SSH_PORT/g" /etc/ssh/sshd_config
+sed -i "s/SSH_PORT/$SSH_PORT/g" /etc/ssh/sshd_config
 service ssh start
 
 # Get environment variables to show up in SSH session
