@@ -4,7 +4,7 @@ LABEL maintainer="Azure App Services Container Images <appsvc-images@microsoft.c
 COPY init_container.sh /bin/
 COPY startup.sh /opt/
 COPY sshd_config /etc/ssh/
-COPY hostingstart.html /home/site/wwwroot/hostingstart.html
+COPY hostingstart.html /opt/startup/hostingstart.html
 COPY staticsite.rb /opt/staticsite.rb
 
 RUN apt-get update -qq \
