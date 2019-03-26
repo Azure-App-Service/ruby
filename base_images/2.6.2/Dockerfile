@@ -1,7 +1,15 @@
 FROM buildpack-deps:jessie-curl
 LABEL maintainer="Azure App Services Container Images <appsvc-images@microsoft.com>"
 
-RUN apt-get update -qq 
+RUN echo "deb http://deb.debian.org/debian/ jessie main" > /etc/apt/sources.list \
+ && echo "deb-src http://deb.debian.org/debian/ jessie main" >> /etc/apt/sources.list \
+ && echo "deb http://security.debian.org/ jessie/updates main" >> /etc/apt/sources.list \
+ && echo "deb-src http://security.debian.org/ jessie/updates main" >> /etc/apt/sources.list \
+ && echo "deb http://archive.debian.org/debian jessie-backports main" >> /etc/apt/sources.list \
+ && echo "deb-src http://archive.debian.org/debian jessie-backports main" >> /etc/apt/sources.list \
+ && echo "Acquire::Check-Valid-Until \"false\";" > /etc/apt/apt.conf
+
+RUN apt-get update -qq
 
 # Dependencies for various ruby and rubygem installations
 RUN apt-get install -y git --no-install-recommends 
