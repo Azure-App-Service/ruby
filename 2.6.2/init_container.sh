@@ -10,7 +10,7 @@ A P P   S E R V I C E   O N   L I N U X
 
 Documentation: http://aka.ms/webapp-linux
 Ruby quickstart: https://aka.ms/ruby-qs
-
+Ruby version $RUBY_VERSION
 EOL
 cat /etc/motd
 
@@ -21,6 +21,6 @@ service ssh start
 eval $(printenv | awk -F= '{print "export " $1"="$2 }' >> /etc/profile)
 
 eval "$(rbenv init -)"
-rbenv global 2.6.2
+rbenv global $RUBY_VERSION
 /opt/startup.sh "$@"
 

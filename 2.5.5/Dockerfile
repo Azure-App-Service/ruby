@@ -1,5 +1,7 @@
-FROM appsvc/rubybase:2.5.5
+FROM appsvcbuildacr.azurecr.io/rubybase:2.5.5
 LABEL maintainer="Azure App Services Container Images <appsvc-images@microsoft.com>"
+
+RUN export RUBY_VERSION="2.5.5"
 
 COPY init_container.sh /bin/
 COPY startup.sh /opt/
@@ -13,7 +15,7 @@ RUN apt-get update -qq \
     && echo "cd /home" >> /etc/bash.bashrc
 
 RUN eval "$(rbenv init -)" \
-  && rbenv global 2.5.5
+  && rbenv global $RUBY_VERSION
 
 RUN chmod 755 /bin/init_container.sh \
   && mkdir -p /home/LogFiles/ \
@@ -28,9 +30,9 @@ ENV WEBSITE_INSTANCE_ID localInstance
 ENV PATH ${PATH}:/home/site/wwwroot
 
 # install libssl1.0.2
-RUN wget http://ftp.us.debian.org/debian/pool/main/o/openssl1.0/libssl1.0.2_1.0.2q-1~deb9u1_amd64.deb \
+RUN wget http://ftp.us.debian.org/debian/pool/main/o/openssl1.0/libssl1.0.2_1.0.2r-1~deb9u1_amd64.deb \
   && apt-get install dialog \
-  && dpkg -i libssl1.0.2_1.0.2q-1~deb9u1_amd64.deb
+  && dpkg -i libssl1.0.2_1.0.2r-1~deb9u1_amd64.deb
 
 WORKDIR /home/site/wwwroot
 
