@@ -21,6 +21,6 @@ service ssh start
 eval $(printenv | awk -F= '{print "export " $1"="$2 }' >> /etc/profile)
 
 eval "$(rbenv init -)"
-rbenv global 2.5.5
+rbenv global 2.6.2
 /opt/startup.sh "$@"
 
