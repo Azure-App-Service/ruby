@@ -31,13 +31,13 @@ RUN chmod -R 777 /usr/local/.rbenv/plugins/ruby-build
 
 RUN /usr/local/.rbenv/plugins/ruby-build/install.sh
 
-# Install ruby 2.3.8
+# Install ruby 2.6.2
 ENV RUBY_CONFIGURE_OPTS=--disable-install-doc
 
 ENV RUBY_CFLAGS=-O3
 
 RUN eval "$(rbenv init -)" \
-  && export WEBSITES_LATEST_NODE_VERSION="2.3.8" \
+  && export WEBSITES_LATEST_NODE_VERSION="2.6.2" \
   && rbenv install $WEBSITES_LATEST_NODE_VERSION \
   && rbenv rehash \
   && rbenv global $WEBSITES_LATEST_NODE_VERSION \
